@@ -1633,5 +1633,4 @@ a:active {
 
 html, body {
   scroll-behavior: auto; /* deixa o JS controlar */
-  overflow-y: auto;
 }
