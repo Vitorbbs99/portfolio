@@ -143,33 +143,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-document.addEventListener('click', function (e) {
-  // 1. Acha o link mais próximo do clique que comece com #
-  const anchor = e.target.closest('a[href^="#"]');
-  
-  if (anchor) {
-    const targetId = anchor.getAttribute('href');
-    
-    // Ignora links vazios
-    if (targetId === '#' || targetId === '#0') return;
+document.addEventListener("DOMContentLoaded", function () {
+  // Scroll suave para âncoras (clique)
+  document.addEventListener("click", function (ev) {
+    const link = ev.target.closest(
+      'a[href^="#"]:not([href="#"]):not([href="#0"])'
+    );
+    if (!link) return;
 
-    const targetElement = document.querySelector(targetId);
+    ev.preventDefault();
 
-    if (targetElement) {
-      // 2. Para o salto brusco do navegador
-      e.preventDefault();
+    // Confere se é a mesma página
+    const samePath =
+      location.pathname.replace(/^\//, "") ===
+      link.pathname.replace(/^\//, "");
+    const sameHost = location.hostname === link.hostname;
 
-      // 3. Pega a posição do elemento na página
-      // Ajuste o 'headerOffset' se você tiver um menu fixo no topo
-      const headerOffset = 90; 
-      const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    if (!samePath && !sameHost) return;
 
-      // 4. Executa o scroll
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+    const hash = link.hash;
+    let target = document.querySelector(hash);
+
+    // Fallback para name=""
+    if (!target) {
+      target = document.querySelector(
+        '[name="' + hash.substring(1) + '"]'
+      );
+    }
+
+    if (target) {
+      scrollToX(target);
+    }
+  });
+
+  // Scroll suave ao carregar a página com hash na URL
+  const urlHash = window.location.hash.replace("#", "");
+  if (urlHash && urlHash !== "0") {
+    const target =
+      document.getElementById(urlHash) ||
+      document.querySelector('[name="' + urlHash + '"]');
+
+    if (target) {
+      // pequeno delay garante que o layout já carregou
+      setTimeout(() => {
+        scrollToX(target);
+      }, 50);
     }
   }
-}, { passive: false }); // Garante que o preventDefault() funcione
+});
+
+function scrollToX(target) {
+  const headerOffset = 90; // ajuste conforme seu header fixo
+  const elementPosition = target.getBoundingClientRect().top;
+  const offsetPosition =
+    elementPosition + window.pageYOffset - headerOffset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth",
+  });
+}

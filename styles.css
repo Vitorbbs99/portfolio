@@ -64,9 +64,6 @@ table {
 * {
   -webkit-tap-highlight-color: #000;
 }
-html {
-  scroll-behavior: smooth !important;
-}
 
 body {
   background: #000319;
@@ -1632,4 +1629,9 @@ a:active {
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+html, body {
+  scroll-behavior: auto; /* deixa o JS controlar */
+  overflow-y: auto;
 }
