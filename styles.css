@@ -205,19 +205,6 @@ img {
   overflow: hidden;
 }
 
-
-@media only screen and (min-width: 768px) and (max-width: 1280px) {
-.hide-tablet {
-    display: none;
-}
-}
-
-@media only screen and (max-width: 600px) {
-.hide-mobile {
-    display: none !important;
-}
-}
-
 .bg-image {
   background-repeat: no-repeat;
   background-position: center center;
@@ -1146,6 +1133,20 @@ a:active {
   gap: 20px;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1280px) {
+.skill-block {
+  width: 100%;
+}
+}
+
+@media only screen and (max-width: 600px) {
+.skill-block {
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+}
+}
+
 .skill-block:hover {
   transform: translateY(-5px);
   border-color: #8a2be2; /* Efeito hover em roxo neon */
@@ -1633,4 +1634,70 @@ a:active {
 
 html, body {
   scroll-behavior: auto; /* deixa o JS controlar */
+}
+
+.portfolio-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.portfolio {
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+@media only screen and (max-width: 600px) {
+.portfolio {
+  margin-bottom: 20px;
+}
+.portfolio:last-child {
+  margin-bottom: 0px;
+}
+}
+
+.portfolio:hover img {
+  transform: scale(1.1);
+}
+.portfolio-image {
+  overflow: hidden;
+  border-radius: 24px;
+}
+.portfolio-image img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  transition: .3s ease-out;
+}
+
+.portfolio-content {
+  padding: 25px;
+  text-align: center;
+}
+
+.portfolio-title {
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #f9f9f9;
+}
+
+.portfolio-subtitle {
+  line-height: 1.2;
+  font-weight: 400;
+  font-size: 15px;
+  color: rgb(190, 193, 221);
+  margin: 0;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1280px) {
+.hide-tablet {
+    display: none;
+}
+}
+
+@media only screen and (max-width: 600px) {
+.hide-mobile {
+    display: none !important;
+}
 }
